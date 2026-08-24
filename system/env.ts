@@ -1,0 +1,40 @@
+// Env
+// This file holds global variables, some of which are constants,
+// some of which can be changed based on CLI commands/options,
+// some of which are runtime state.
+
+export const Env = {
+  // CONFIGURABLE CONSTANTS
+
+  // Name of this website, used for things like the title of the RSS feed.
+  name: "CakeWalk",
+
+  // Where is this website deployed?
+  domain: "example.com",
+
+  // Describe this site, for RSS and OG tags.
+  description: "A website built with CakeWalk.",
+
+  // Remote repo for this site.
+  repo: "https://github.com/inkandswitch/cakewalk",
+
+  // When these folders change, the watcher triggers a build.
+  // If you're using an assets submodule (for instance), add it here.
+  watchedPaths: ["content", "template"], // const
+
+  // CLI FLAGS
+
+  // Include draft pages in the build, and emit a robots.txt disallowing everything. True by default for most commands.
+  draft: true, // set explicitly with --draft or --no-draft
+
+  // Skip the font subsetting step.
+  subsetFonts: true, // disable with --no-fonts
+
+  // Increase the amount of logging
+  verbose: false, // enable with --verbose
+
+  // RUNTIME STATE
+
+  // Set to false when performing test builds, to reduce diff noise
+  useRealBuildDates: true,
+}

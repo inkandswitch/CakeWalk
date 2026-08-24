@@ -1,0 +1,6 @@
+Lines that don't begin with a slash (like this one) are treated as comments.
+Each redirect is an old absolute path, whitespace, then a new absolute path (or full URL).
+
+This file is optional. If you don't want it, just delete it :)
+
+Eg: /example-old          /example-new

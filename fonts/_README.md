@@ -1,0 +1,1 @@
+This folder contains uncompressed OTF / TTF files for any fonts you want to use on the website. When the build system runs, it'll automatically subset and optimize these fonts, producing WOFF2 files in /template/static/fonts/. If you'd like to add or change a font on the site, check the Fonts section of the main README.

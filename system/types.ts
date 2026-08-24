@@ -1,0 +1,38 @@
+// Types
+// At time of writing, Node.js has mediocre support for TypeScript.
+// It helps to have exported types stored in a dedicated file,
+// and then imported using: import type { … } from "./types.ts"
+// So that's what this file is for.
+
+export type Stats = {
+  modified: Date
+}
+
+export type Frontmatter = Record<string, string>
+
+export type Templates = Record<string, Template>
+
+export type Template = {
+  path: string
+  frontmatter: Frontmatter
+  body: string
+}
+
+export type PageSource = {
+  path: string
+  source: string
+  stats: Stats
+}
+
+export type Page = PageSource & {
+  frontmatter: Frontmatter
+  body: string // The raw markdown source
+  compiledBody: string // Compiled HTML for the body
+  html: string // Compiled HTML for the entire page (body wrapped with template)
+  scannable: string // Page HTML with <pre>, <code>, and <!-- comments --> stripped out, for validating assets and links
+  dest: string
+  url: URL
+  parent?: Page
+  children: Page[]
+  template: Template
+}
