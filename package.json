@@ -1,13 +1,13 @@
 {
   "type": "module",
   "devDependencies": {
-    "@types/node": "^25.6.0",
+    "@types/node": "^26.4.1",
     "@types/ws": "^8.18.0",
     "chokidar": "^5.0.0",
     "glob": "^13.0.6",
-    "markdown-it": "^15.0.0",
-    "typescript": "^6.0.2",
-    "ws": "^8.20.0"
+    "markdown-it": "^15.0.1",
+    "typescript": "^7.0.2",
+    "ws": "^8.21.3"
   },
   "engines": {
     "node": ">=24.0.0"

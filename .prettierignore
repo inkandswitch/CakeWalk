@@ -1,4 +1,0 @@
-# Please don't auto-format CSS and HTML files.
-# They've been nicely formatted by hand.
-**/*.css
-**/*.html

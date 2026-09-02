@@ -262,7 +262,7 @@ You can run `site help` to list all the available commands.
 
 ### Deploy
 
-If you need to build the website in a novel environment, it should be straightforward to get up and running. For instance, here's the build command on Netlify: `bun system/app.ts build`. For other options, see the source code of the [site](https://github.com/inkandswitch/cakewalk/blob/main/site) command.
+If you need to build the website in a novel environment, it should be straightforward to get up and running. For instance, here's the build command on Netlify: `bun system/app.ts build`. For other options, see the source code of the [site](site) command.
 
 <br>
 
