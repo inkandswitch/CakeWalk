@@ -19,20 +19,27 @@ const dotfiles = /(^|[\/\\])\../
 export function runWatcher(paths: string[], actions: () => any, debounceTime = 100) {
   const runActionsSoon = debounce(debounceTime, actions)
 
-  Chokidar.watch(paths, { ignored: dotfiles, ignoreInitial: true })
-    .on("error", () => log(red(`Watching ${JSON.stringify(paths)} failed`)))
-    .on("all", (event, path) => {
-      // There's a weird issue where empty files trigger a change event when used as the source of a hardlink.
-      // This leads to infinite recompile loops. To mitigate, we ignore them.
-      if (event == "change") {
-        const stats = FS.statSync(path)
-        if (stats.size == 0 && stats.nlink > 1) {
-          if (Env.verbose) log(magenta(event) + " " + green(path) + " " + magenta("(ignoring)"))
-          return
-        }
-      }
+  // Some OSes emit a "change" when we create a hardlink to a file, which can cause an infinite loop.
+  // To avoid that, we track when each file was modified, and only accept a "change" when the file actually changes.
+  const mtimes = new Map<string, number>()
 
+  Chokidar.watch(paths, { ignored: dotfiles, ignoreInitial: true, alwaysStat: true })
+    .on("error", () => log(red(`Watching ${JSON.stringify(paths)} failed`)))
+    .on("all", (event, path, stats) => {
+      const unchanged = event == "change" && stats && mtimes.get(path) == stats.mtimeMs
+
+      // This log is to help debug the aforementioned infinite loop. When we're satisfied with the fix, we can kill it.
+      if (unchanged && Env.verbose) log(magenta(event) + " " + green(path) + " " + magenta("(unchanged)"))
+
+      // Bail if this file was not changed
+      if (unchanged) return
+
+      // Update our modification time tracking
+      if (stats) mtimes.set(path, stats.mtimeMs)
+
+      // This log is to help see which files trigger an action, which is generally useful to know
       if (Env.verbose) log(magenta(event) + " " + green(path))
+
       runActionsSoon()
     })
 }
